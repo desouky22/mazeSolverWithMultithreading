@@ -149,6 +149,7 @@ public class AppGui extends javax.swing.JFrame {
                 for(int y = 0; y<MainClass.size; y++){
                     answerGrid[x][y] = new JTextField();
                     if(MainClass.vis[x][y] == 1) answerGrid[x][y].setBackground(Color.red);
+                    else if (MainClass.Grid[x][y] == 0) answerGrid[x][y].setBackground(Color.gray);
                     else answerGrid[x][y].setBackground(Color.white);
                 }
             }
@@ -159,10 +160,6 @@ public class AppGui extends javax.swing.JFrame {
                     answerFrame.add(answerGrid[x][y]);
                 }
             }
-            
-            
-            
-
         } catch (InterruptedException ex) {
             Logger.getLogger(AppGui.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);
