@@ -10,6 +10,7 @@ public class MainClass {
     public static int [][] Grid = new int [N][N];
     public static int [][] vis = new int [N][N];
     public static int size = 0;
+    
 
     public static void main(String[] args) throws InterruptedException {
         RUN();
@@ -17,22 +18,18 @@ public class MainClass {
     
     public static void RUN() throws InterruptedException{
         init(size);
-        for(int x = 0; x<MainClass.size; x++){
-                for(int y = 0; y<MainClass.size; y++){
-                    AppGui.answerGrid[x][y] = new JTextField();
-                }
-        }
- 
+
         MyThread  runner = new MyThread(0,0,0,-1);
         Thread t0 = new Thread(runner);
         t0.start();
         t0.join();
-        
+      
         if(dis[size-1][size-1]== INF){
             System.out.println("No path -1");
             return ;
         }
         path(size-1,size-1);
+        
     }
     
     public static void init(int sz){
@@ -44,6 +41,10 @@ public class MainClass {
             }
         }
         vis[0][0]=1;
+    }
+    
+    public static boolean validIndex(int i , int j, int curDis){
+        return i >= 0 && i < size && j < size && j >= 0 && dis[i][j] >= curDis;
     }
 
     public static boolean valid(int i, int j, int curDis){
