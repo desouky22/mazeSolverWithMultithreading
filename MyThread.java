@@ -1,10 +1,13 @@
+package test;
+import java.awt.Color;
 import java.lang.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import test.MainClass;
 
 public class MyThread implements Runnable {
     int idxI, idxJ, curDis, fromWhere;
-    public MyThread(int i,int j,int curDis1,int par){
+    public  MyThread(int i,int j,int curDis1,int par){
         this.idxI =i;
         this.idxJ =j;
         this.curDis =curDis1;
@@ -23,16 +26,15 @@ public class MyThread implements Runnable {
     }
 
     public static void dfs(int i,int j,int curDis ) throws InterruptedException{
-        int  goi , goj , godis;
-        goi = i + 1;
-        goj = j ;
-        godis = curDis + 1;
+        int  goi  = i + 1 , goj  = j ,godis = curDis + 1;
+
         if(MainClass.valid(goi,goj,godis)){
             MyThread runnner = new MyThread(goi,goj,godis,1);
             Thread runfromdown = new Thread(runnner);
             runfromdown.start();
             runfromdown.join();
         }
+        
         goi = i ;
         goj = j + 1;
         if(MainClass.valid(goi,goj,godis)){
