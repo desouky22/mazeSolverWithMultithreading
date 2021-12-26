@@ -1,4 +1,5 @@
 package test;
+
 import java.awt.Color;
 import java.lang.*;
 import java.util.logging.Level;
