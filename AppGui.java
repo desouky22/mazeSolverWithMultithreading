@@ -148,10 +148,18 @@ public class AppGui extends javax.swing.JFrame {
     }                                  
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        for(int x = 0; x<MainClass.size; x++){
+            for(int y = 0; y<MainClass.size; y++){
+                AppGui.answerGrid[x][y] = new JTextField();
+            }
+        }
+        
         for (int x = 0; x<MainClass.size; x++){
             for(int y = 0; y<MainClass.size; y++){
-                if(gridArray[x][y].getText() == "0")
+                if(gridArray[x][y].getText() == "0"){
                     MainClass.Grid[x][y] = 0;
+                    answerGrid[x][y].setBackground(Color.gray);
+                }
                 else 
                     MainClass.Grid[x][y] = 1;
             }
@@ -163,16 +171,9 @@ public class AppGui extends javax.swing.JFrame {
             answerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             answerFrame.setSize(500, 500);
             
-            for(int x = 0; x<MainClass.size; x++){
-                for(int y = 0; y<MainClass.size; y++){
-                    answerGrid[x][y] = new JTextField();
-                    if(MainClass.vis[x][y] == 1) answerGrid[x][y].setBackground(Color.red);
-                    else if (MainClass.Grid[x][y] == 0) answerGrid[x][y].setBackground(Color.gray);
-                    else answerGrid[x][y].setBackground(Color.white);
-                }
-            }
             
             answerFrame.setLayout(new GridLayout(MainClass.size , MainClass.size));
+            
             
             for(int x = 0; x<MainClass.size; x++ ){
                 for(int y = 0; y<MainClass.size; y++){
