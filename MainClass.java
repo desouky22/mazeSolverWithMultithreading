@@ -1,4 +1,7 @@
+package test;
+import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JTextField;
 
 public class MainClass {
     public static final int N = (int) 1e3 , INF = (int) 1e9;
@@ -14,22 +17,22 @@ public class MainClass {
     
     public static void RUN() throws InterruptedException{
         init(size);
+        for(int x = 0; x<MainClass.size; x++){
+                for(int y = 0; y<MainClass.size; y++){
+                    AppGui.answerGrid[x][y] = new JTextField();
+                }
+        }
  
         MyThread  runner = new MyThread(0,0,0,-1);
         Thread t0 = new Thread(runner);
         t0.start();
         t0.join();
+        
         if(dis[size-1][size-1]== INF){
             System.out.println("No path -1");
             return ;
         }
         path(size-1,size-1);
-        
-//        for(int i=0;i<size;i++){
-//            for(int j=0;j<size;j++)
-//                System.out.print(vis[i][j] + " ");
-//            System.out.println();
-//        }
     }
     
     public static void init(int sz){
