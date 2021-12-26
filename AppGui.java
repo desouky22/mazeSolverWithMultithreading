@@ -1,18 +1,29 @@
+package test;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class AppGui extends javax.swing.JFrame {
     public static JButton[][] gridArray = new JButton[1000][1000];
     public static JTextField [][] answerGrid = new JTextField[1000][1000];
+    public static JFrame answerFrame = new JFrame();
+    
+    
 
     /**
      * Creates new form AppGui
@@ -22,8 +33,7 @@ public class AppGui extends javax.swing.JFrame {
         initComponents();
     }
     
-    
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,11 +81,14 @@ public class AppGui extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(firstText, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(85, 85, 85)
-                .addComponent(Ok, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(firstText, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addComponent(Ok, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,8 +111,12 @@ public class AppGui extends javax.swing.JFrame {
     }                                         
 
     private void OkActionPerformed(java.awt.event.ActionEvent evt) {                                   
-        if(MainClass.isInt(firstText.getText())){
+        if(MainClass.isInt(firstText.getText()) ){
             MainClass.size = Integer.parseInt(firstText.getText());
+            if(MainClass.size <= 1){
+                showMessageDialog(null , "cannot Make a grid of this size");
+                System.exit(0);
+            }
 
             JFrame frame = new JFrame();
             frame.setVisible(true);
@@ -124,7 +141,10 @@ public class AppGui extends javax.swing.JFrame {
             gridArray[0][0].setText("1");
             gridArray[MainClass.size-1][MainClass.size-1].setText("1");
         }
-        else  System.exit(0);
+        else{  
+            showMessageDialog(null , "Invalid Input");
+            System.exit(0);
+        }
     }                                  
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -139,11 +159,9 @@ public class AppGui extends javax.swing.JFrame {
         
         try {
             MainClass.RUN();
-            JFrame answerFrame = new JFrame();
             answerFrame.setVisible(true);
             answerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             answerFrame.setSize(500, 500);
-            
             
             for(int x = 0; x<MainClass.size; x++){
                 for(int y = 0; y<MainClass.size; y++){
@@ -153,6 +171,7 @@ public class AppGui extends javax.swing.JFrame {
                     else answerGrid[x][y].setBackground(Color.white);
                 }
             }
+            
             answerFrame.setLayout(new GridLayout(MainClass.size , MainClass.size));
             
             for(int x = 0; x<MainClass.size; x++ ){
@@ -160,6 +179,7 @@ public class AppGui extends javax.swing.JFrame {
                     answerFrame.add(answerGrid[x][y]);
                 }
             }
+            
         } catch (InterruptedException ex) {
             Logger.getLogger(AppGui.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);
