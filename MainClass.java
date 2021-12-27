@@ -1,8 +1,9 @@
 package test;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JTextField;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class MainClass {
     public static final int N = (int) 1e3 , INF = (int) 1e9;
@@ -11,7 +12,7 @@ public class MainClass {
     public static int [][] Grid = new int [N][N];
     public static int [][] vis = new int [N][N];
     public static int size = 0;
-    
+    public static int [] colors = new int[4];
 
     public static void main(String[] args) throws InterruptedException {
         RUN();
@@ -26,11 +27,12 @@ public class MainClass {
         t0.join();
       
         if(dis[size-1][size-1]== INF){
-            System.out.println("No path -1");
+            showMessageDialog(null , "There is NO PATH");
+            System.exit(0);
             return ;
+        }else{
+            path(size-1,size-1);
         }
-        path(size-1,size-1);
-        
     }
     
     public static void init(int sz){
