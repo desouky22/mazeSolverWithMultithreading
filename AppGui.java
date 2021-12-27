@@ -1,5 +1,4 @@
 package test;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -160,6 +159,8 @@ public class AppGui extends javax.swing.JFrame {
                 if(gridArray[x][y].getText() == "0"){
                     MainClass.Grid[x][y] = 0;
                     answerGrid[x][y].setBackground(Color.gray);
+                    answerGrid[x][y].setText("Block");
+                    answerGrid[x][y].setHorizontalAlignment(JTextField.CENTER);
                 }
                 else 
                     MainClass.Grid[x][y] = 1;
